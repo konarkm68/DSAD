@@ -22,7 +22,11 @@ int main(void)
 
     while (true)
     {
-        printf("Queue (F.I.F.O.)\n\nChoices:\n1. Insert Element\n2. Delete First Element\n3. Show Queue\n4. Exit\n\nEnter your choice: ");
+        printf("Queue (F.I.F.O.)\n");
+        printf("\n");
+        printf("Choices:\n1. Insert Element\n2. Delete First Element\n3. Show Queue\n4. Exit\n");
+        printf("\n");
+        printf("Enter your choice: ");
         scanf("%d",&choice);
 
         switch(choice)
@@ -35,10 +39,12 @@ int main(void)
                 scanf("%d",&value);
 
                 insert_elem(value);
+                display_queue();
                 break;
             }
             case 2:
                 delete_elem();
+                display_queue();
                 break;
             case 3:
                 display_queue();
@@ -56,7 +62,7 @@ int main(void)
 void display_queue()
 {
     if (head == NULL)
-        printf("List is empty. .. ...");
+        printf("Queue is empty. .. ...");
     else
     {
         int counter = 0;
@@ -96,8 +102,6 @@ void insert_elem(int insert_value)
             temp = (*temp).addl_nodes;
         (*temp).addl_nodes = new_node;
     }
-
-    display_queue();
 }
 
 void delete_elem()
@@ -109,6 +113,4 @@ void delete_elem()
         head = (*head).addl_nodes;
         free(temp);
     }
-
-    display_queue();
 }

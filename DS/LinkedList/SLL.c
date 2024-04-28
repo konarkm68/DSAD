@@ -4,7 +4,7 @@
 
 // Function Prototypes
 void insert_elem(int insert_value);
-void display_queue();
+void display_sll();
 void delete_elem();
 
 // Node Structure
@@ -22,7 +22,11 @@ int main(void)
 
     while (true)
     {
-        printf("Queue (F.I.F.O.)\n\nChoices:\n1. Insert Element\n2. Delete First Element\n3. Show Queue\n4. Exit\n\nEnter your choice: ");
+        printf("Singly-Linked-List OR SLL (L.I.F.O.)\n");
+        printf("\n");
+        printf("Choices:\n1. Insert Element\n2. Delete Latest Element\n3. Show SLL\n4. Exit\n");
+        printf("\n");
+        printf("Enter your choice: ");
         scanf("%d",&choice);
 
         switch(choice)
@@ -35,13 +39,15 @@ int main(void)
                 scanf("%d",&value);
 
                 insert_elem(value);
+                display_sll();
                 break;
             }
             case 2:
                 delete_elem();
+                display_sll();
                 break;
             case 3:
-                display_queue();
+                display_sll();
                 break;
             case 4:
                 free(head);
@@ -53,10 +59,10 @@ int main(void)
     return 0;
 }
 
-void display_queue()
+void display_sll()
 {
     if (head == NULL)
-        printf("List is empty. .. ...");
+        printf("SLL is empty. .. ...");
     else
     {
         int counter = 0;
@@ -90,14 +96,9 @@ void insert_elem(int insert_value)
         head = new_node;
     else
     {
-        struct node *temp = head;
-
-        while ((*temp).addl_nodes != NULL)
-            temp = (*temp).addl_nodes;
-        (*temp).addl_nodes = new_node;
+        (*new_node).addl_nodes = head;
+        head = new_node;
     }
-
-    display_queue();
 }
 
 void delete_elem()
@@ -105,10 +106,8 @@ void delete_elem()
     if (head != NULL)
     {
         struct node *temp = head;
-
         head = (*head).addl_nodes;
+
         free(temp);
     }
-
-    display_queue();
 }

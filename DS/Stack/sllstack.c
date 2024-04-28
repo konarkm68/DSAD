@@ -22,7 +22,11 @@ int main(void)
 
     while (true)
     {
-        printf("Stack (L.I.F.O.)\n\nChoices:\n1. Insert Element\n2. Delete Latest Element\n3. Show Stack\n4. Exit\n\nEnter your choice: ");
+        printf("Stack (L.I.F.O.)\n");
+        printf("\n");
+        printf("Choices:\n1. Insert Element\n2. Delete Latest Element\n3. Show Stack\n4. Exit\n");
+        printf("\n");
+        printf("Enter your choice: ");
         scanf("%d",&choice);
 
         switch(choice)
@@ -35,10 +39,12 @@ int main(void)
                 scanf("%d",&value);
 
                 insert_elem(value);
+                display_stack();
                 break;
             }
             case 2:
                 delete_elem();
+                display_stack();
                 break;
             case 3:
                 display_stack();
@@ -56,7 +62,7 @@ int main(void)
 void display_stack()
 {
     if (head == NULL)
-        printf("List is empty. .. ...");
+        printf("Stack is empty. .. ...");
     else
     {
         int counter = 0;
@@ -90,34 +96,18 @@ void insert_elem(int insert_value)
         head = new_node;
     else
     {
-        struct node *temp = head;
-
-        while ((*temp).addl_nodes != NULL)
-            temp = (*temp).addl_nodes;
-        (*temp).addl_nodes = new_node;
+        (*new_node).addl_nodes = head;
+        head = new_node;
     }
-
-    display_stack();
 }
 
 void delete_elem()
 {
     if (head != NULL)
     {
-        struct node *temp = head, *new_head = NULL;
-
-        while ((*temp).addl_nodes != NULL)
-        {
-            new_head = temp;
-            temp = (*temp).addl_nodes;
-        }
-        if (new_head != NULL)
-            (*new_head).addl_nodes = NULL;
-        else
-            head = NULL;
+        struct node *temp = head;
+        head = (*head).addl_nodes;
 
         free(temp);
     }
-
-    display_stack();
 }
