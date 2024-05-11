@@ -60,9 +60,9 @@ void display_queue()
     else
         for (int i = 0; i < QSIZE; i++)
             printf("%d, ", arr[i]);
-        printf("\nFront: %d", front);
-        printf("\n Rear: %d", rear);
-        printf("\nCount: %d", count);
+        //printf("\nFront: %d", front);
+        //printf("\n Rear: %d", rear);
+        //printf("\nCount: %d", count);
 
     printf("\n\n");
 }
@@ -72,7 +72,7 @@ void insert_elem(int insert_value)
     if (0 <= count && count < QSIZE)
     {
         arr[rear] = insert_value;
-        rear++;
+        rear = (rear + 1) % QSIZE;
         count++;
     }
     else
@@ -84,7 +84,7 @@ void delete_elem()
     if (0 < count && count <= QSIZE)
     {
         arr[front] = 0;
-        front++;
+        front = (front + 1) % QSIZE;
         count--;
     }
     else
