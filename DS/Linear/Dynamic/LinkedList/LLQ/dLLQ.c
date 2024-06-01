@@ -4,14 +4,15 @@
 
 // Function Prototypes
 void insert_elem(int insert_value);
-void display_dll();
+void display_queue();
 void delete_elem();
 
 // Node Structure
 struct node
 {
+    struct node *l_nodes;
     int data;
-    struct node *addl_nodes;
+    struct node *r_nodes;
 };
 // Head
 struct node *head = NULL;
@@ -22,9 +23,9 @@ int main(void)
 
     while (true)
     {
-        printf("Doubly-Linked-List OR DLL (L.I.F.O.)\n");
+        printf("Queue (F.I.F.O.)\n");
         printf("\n");
-        printf("Choices:\n1. Insert Element\n2. Delete Latest Element\n3. Show SLL\n4. Exit\n");
+        printf("Choices:\n1. Insert Element\n2. Delete First Element\n3. Show Queue\n4. Exit\n");
         printf("\n");
         printf("Enter your choice: ");
         scanf("%d",&choice);
@@ -39,15 +40,15 @@ int main(void)
                 scanf("%d",&value);
 
                 insert_elem(value);
-                display_dll();
+                display_queue();
                 break;
             }
             case 2:
                 delete_elem();
-                display_dll();
+                display_queue();
                 break;
             case 3:
-                display_dll();
+                display_queue();
                 break;
             case 4:
                 free(head);
@@ -59,19 +60,19 @@ int main(void)
     return 0;
 }
 
-void display_dll()
+void display_queue()
 {
     if (head == NULL)
-        printf("SLL is empty. .. ...");
+        printf("Queue is empty. .. ...");
     else
     {
         int counter = 0;
         struct node *temp = head;
 
-        while((*temp).addl_nodes != NULL)
+        while((*temp).r_nodes != NULL)
         {
             printf("[%d, ", temp->data);
-            temp = (*temp).addl_nodes;
+            temp = (*temp).r_nodes;
             counter++;
         }
         printf("[%d, _", (*temp).data);
@@ -89,15 +90,19 @@ void insert_elem(int insert_value)
 {
     struct node *new_node = (struct node *) malloc(sizeof(struct node));
 
+    (*new_node).l_nodes = NULL;
     (*new_node).data = insert_value;
-    (*new_node).addl_nodes = NULL;
+    (*new_node).r_nodes = NULL;
 
     if (head == NULL)
         head = new_node;
     else
     {
-        (*new_node).addl_nodes = head;
-        head = new_node;
+        struct node *temp = head;
+
+        while ((*temp).r_nodes != NULL)
+            temp = (*temp).r_nodes;
+        (*temp).r_nodes = new_node;
     }
 }
 
@@ -106,8 +111,8 @@ void delete_elem()
     if (head != NULL)
     {
         struct node *temp = head;
-        head = (*head).addl_nodes;
 
+        head = (*head).r_nodes;
         free(temp);
     }
 }
