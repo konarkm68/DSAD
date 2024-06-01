@@ -5,9 +5,9 @@
 #define QSIZE 3
 
 // Function Prototypes
-void insert_elem(int insert_value);
-void display_queue();
+void display_arr();
 void delete_elem();
+void insert_elem(int elem_2_insert);
 // Head
 int front = 0, rear = 0, count = 0, arr[QSIZE];
 
@@ -17,9 +17,9 @@ int main(void)
 
     while (true)
     {
-        printf("Queue (F.I.F.O.)\n");
+        printf("Array-based Circular Queue (F.I.F.O.)\n");
         printf("\n");
-        printf("Choices:\n1. Insert Element\n2. Delete First Element\n3. Show Queue\n4. Exit\n");
+        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show Array-based Circular Queue\n4. Exit\n");
         printf("\n");
         printf("Enter your choice: ");
         scanf("%d",&choice);
@@ -34,15 +34,15 @@ int main(void)
                 scanf("%d",&value);
 
                 insert_elem(value);
-                display_queue();
+                display_arr();
                 break;
             }
             case 2:
                 delete_elem();
-                display_queue();
+                display_arr();
                 break;
             case 3:
-                display_queue();
+                display_arr();
                 break;
             case 4:
                 exit(0);
@@ -53,30 +53,15 @@ int main(void)
     return 0;
 }
 
-void display_queue()
+void display_arr()
 {
     if (count == 0)
-        printf("Queue is empty. .. ...");
+        printf("Array-based Circular Queue is empty. .. ...");
     else
         for (int i = 0; i < QSIZE; i++)
             printf("%d, ", arr[i]);
-        //printf("\nFront: %d", front);
-        //printf("\n Rear: %d", rear);
-        //printf("\nCount: %d", count);
 
     printf("\n\n");
-}
-
-void insert_elem(int insert_value)
-{
-    if (0 <= count && count < QSIZE)
-    {
-        arr[rear] = insert_value;
-        rear = (rear + 1) % QSIZE;
-        count++;
-    }
-    else
-        printf("Queue is at Capacity. (Over-Flow NOT-ALLOWED)\n");
 }
 
 void delete_elem()
@@ -88,5 +73,17 @@ void delete_elem()
         count--;
     }
     else
-        printf("Queue is empty. (Under-Flow NOT-ALLOWED)\n");
+        printf("Array-based Circular Queue is empty. (Under-Flow NOT-ALLOWED)\n");
+}
+
+void insert_elem(int elem_2_insert)
+{
+    if (0 <= count && count < QSIZE)
+    {
+        arr[rear] = elem_2_insert;
+        rear = (rear + 1) % QSIZE;
+        count++;
+    }
+    else
+        printf("Array-based Circular Queue is at Capacity. (Over-Flow NOT-ALLOWED)\n");
 }

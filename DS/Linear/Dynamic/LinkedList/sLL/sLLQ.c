@@ -3,9 +3,9 @@
 #include <stdbool.h>
 
 // Function Prototypes
-void insert_elem(int insert_value);
-void display_queue();
+void display_sLL();
 void delete_elem();
+void insert_elem(int elem_2_insert);
 
 // Node Structure
 struct node
@@ -22,9 +22,9 @@ int main(void)
 
     while (true)
     {
-        printf("Queue (F.I.F.O.)\n");
+        printf("Singly-Linked-List OR SLL Queue (F.I.F.O.)\n");
         printf("\n");
-        printf("Choices:\n1. Insert Element\n2. Delete First Element\n3. Show Queue\n4. Exit\n");
+        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show SLL Queue\n4. Exit\n");
         printf("\n");
         printf("Enter your choice: ");
         scanf("%d",&choice);
@@ -39,15 +39,15 @@ int main(void)
                 scanf("%d",&value);
 
                 insert_elem(value);
-                display_queue();
+                display_sLL();
                 break;
             }
             case 2:
                 delete_elem();
-                display_queue();
+                display_sLL();
                 break;
             case 3:
-                display_queue();
+                display_sLL();
                 break;
             case 4:
                 free(head);
@@ -59,10 +59,10 @@ int main(void)
     return 0;
 }
 
-void display_queue()
+void display_sLL()
 {
     if (head == NULL)
-        printf("Queue is empty. .. ...");
+        printf("SLL Queue is empty. .. ...");
     else
     {
         int counter = 0;
@@ -85,11 +85,22 @@ void display_queue()
     printf("\n\n");
 }
 
-void insert_elem(int insert_value)
+void delete_elem()
+{
+    if (head != NULL)
+    {
+        struct node *temp = head;
+        head = (*head).addl_nodes;
+
+        free(temp);
+    }
+}
+
+void insert_elem(int elem_2_insert)
 {
     struct node *new_node = (struct node *) malloc(sizeof(struct node));
 
-    (*new_node).data = insert_value;
+    (*new_node).data = elem_2_insert;
     (*new_node).addl_nodes = NULL;
 
     if (head == NULL)
@@ -97,20 +108,9 @@ void insert_elem(int insert_value)
     else
     {
         struct node *temp = head;
-
         while ((*temp).addl_nodes != NULL)
             temp = (*temp).addl_nodes;
+            
         (*temp).addl_nodes = new_node;
-    }
-}
-
-void delete_elem()
-{
-    if (head != NULL)
-    {
-        struct node *temp = head;
-
-        head = (*head).addl_nodes;
-        free(temp);
     }
 }

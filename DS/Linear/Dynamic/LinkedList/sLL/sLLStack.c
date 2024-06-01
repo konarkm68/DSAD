@@ -3,9 +3,9 @@
 #include <stdbool.h>
 
 // Function Prototypes
-void insert_elem(int insert_value);
-void display_sll();
+void display_sLL();
 void delete_elem();
+void insert_elem(int elem_2_insert);
 
 // Node Structure
 struct node
@@ -22,9 +22,9 @@ int main(void)
 
     while (true)
     {
-        printf("Singly-Linked-List OR SLL (L.I.F.O.)\n");
+        printf("Singly-Linked-List OR SLL Stack (L.I.F.O.)\n");
         printf("\n");
-        printf("Choices:\n1. Insert Element\n2. Delete Latest Element\n3. Show SLL\n4. Exit\n");
+        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show SLL Stack\n4. Exit\n");
         printf("\n");
         printf("Enter your choice: ");
         scanf("%d",&choice);
@@ -39,15 +39,15 @@ int main(void)
                 scanf("%d",&value);
 
                 insert_elem(value);
-                display_sll();
+                display_sLL();
                 break;
             }
             case 2:
                 delete_elem();
-                display_sll();
+                display_sLL();
                 break;
             case 3:
-                display_sll();
+                display_sLL();
                 break;
             case 4:
                 free(head);
@@ -59,10 +59,10 @@ int main(void)
     return 0;
 }
 
-void display_sll()
+void display_sLL()
 {
     if (head == NULL)
-        printf("SLL is empty. .. ...");
+        printf("SLL Stack is empty. .. ...");
     else
     {
         int counter = 0;
@@ -85,22 +85,6 @@ void display_sll()
     printf("\n\n");
 }
 
-void insert_elem(int insert_value)
-{
-    struct node *new_node = (struct node *) malloc(sizeof(struct node));
-
-    (*new_node).data = insert_value;
-    (*new_node).addl_nodes = NULL;
-
-    if (head == NULL)
-        head = new_node;
-    else
-    {
-        (*new_node).addl_nodes = head;
-        head = new_node;
-    }
-}
-
 void delete_elem()
 {
     if (head != NULL)
@@ -109,5 +93,21 @@ void delete_elem()
         head = (*head).addl_nodes;
 
         free(temp);
+    }
+}
+
+void insert_elem(int elem_2_insert)
+{
+    struct node *new_node = (struct node *) malloc(sizeof(struct node));
+
+    (*new_node).data = elem_2_insert;
+    (*new_node).addl_nodes = NULL;
+
+    if (head == NULL)
+        head = new_node;
+    else
+    {
+        (*new_node).addl_nodes = head;
+        head = new_node;
     }
 }

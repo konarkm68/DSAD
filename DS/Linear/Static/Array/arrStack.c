@@ -5,9 +5,9 @@
 #define STACKSIZE 3
 
 // Function Prototypes
-void insert_elem(int insert_value);
-void display_stack();
+void display_arr();
 void delete_elem();
+void insert_elem(int elem_2_insert);
 // Head
 int count = 0, *rear = &count, arr[STACKSIZE];
 
@@ -17,9 +17,9 @@ int main(void)
 
     while (true)
     {
-        printf("Stack (L.I.F.O.)\n");
+        printf("Array-based Circular Stack (L.I.F.O.)\n");
         printf("\n");
-        printf("Choices:\n1. Insert Element\n2. Delete Latest Element\n3. Show Stack\n4. Exit\n");
+        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show Array-based Circular Stack\n4. Exit\n");
         printf("\n");
         printf("Enter your choice: ");
         scanf("%d",&choice);
@@ -34,15 +34,15 @@ int main(void)
                 scanf("%d",&value);
 
                 insert_elem(value);
-                display_stack();
+                display_arr();
                 break;
             }
             case 2:
                 delete_elem();
-                display_stack();
+                display_arr();
                 break;
             case 3:
-                display_stack();
+                display_arr();
                 break;
             case 4:
                 exit(0);
@@ -53,26 +53,15 @@ int main(void)
     return 0;
 }
 
-void display_stack()
+void display_arr()
 {
     if (count == 0)
-        printf("Stack is empty. .. ...");
+        printf("Array-based Circular Stack is empty. .. ...");
     else
         for (int i = 0; i < STACKSIZE; i++)
             printf("%d, ", arr[i]);
 
     printf("\n\n");
-}
-
-void insert_elem(int insert_value)
-{
-    if (0 <= count && count < STACKSIZE)
-    {
-        arr[*rear] = insert_value;
-        count++;
-    }
-    else
-        printf("Stack is at Capacity. (Over-Flow NOT-ALLOWED)\n");
 }
 
 void delete_elem()
@@ -84,5 +73,17 @@ void delete_elem()
 
     }
     else
-        printf("Stack is empty. (Under-Flow NOT-ALLOWED)\n");
+        printf("Array-based Circular Stack is empty. (Under-Flow NOT-ALLOWED)\n");
+}
+
+void insert_elem(int elem_2_insert)
+{
+    if (0 <= count && count < STACKSIZE)
+    {
+        arr[*rear] = elem_2_insert;
+        count++;
+
+    }
+    else
+        printf("Array-based Circular Stack is at Capacity. (Over-Flow NOT-ALLOWED)\n");
 }
