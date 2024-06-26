@@ -70,11 +70,11 @@ void display_sLL()
 
         while((*temp).addl_nodes != NULL)
         {
-            printf("[%d, ", temp->data);
+            printf("[%c, ", temp->data);
             temp = (*temp).addl_nodes;
             counter++;
         }
-        printf("[%d, _", (*temp).data);
+        printf("[%c, _", (*temp).data);
         while (counter >= 0)
         {
             printf("]");
