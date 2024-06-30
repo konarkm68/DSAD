@@ -6,6 +6,7 @@
 
 // Function Prototypes
 void display_arr();
+void search_elem(int elem_2_search);
 void delete_elem();
 void insert_elem(int elem_2_insert);
 // Head
@@ -19,7 +20,7 @@ int main(void)
     {
         printf("Array-based Circular Stack (L.I.F.O.) [Size: %d]\n", STACKSIZE);
         printf("\n");
-        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show Array-based Circular Stack\n4. Exit\n");
+        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show Array-based Circular Stack\n4. Exit\n5. Search Element\n");
         printf("\n");
         printf("Enter your choice: ");
         scanf("%d",&choice);
@@ -47,6 +48,19 @@ int main(void)
             case 4:
                 exit(0);
                 break;
+            case 5:
+            {
+                int value;
+
+                printf("Enter integer value to search: ");
+                scanf("%d",&value);
+
+                search_elem(value);
+                display_arr();
+                break;
+            }
+            default:
+                printf("Invalid Choice...!!\n\n");
         }
     }
 
@@ -58,10 +72,27 @@ void display_arr()
     if (count == 0)
         printf("Array-based Circular Stack is empty. .. ...");
     else
-        for (int i = 0; i < STACKSIZE; i++)
+        for (int i = 0; i < count; i++)
             printf("%d, ", arr[i]);
 
     printf("\n\n");
+} 
+
+void search_elem(int elem_2_search)
+{
+    int flag = 0;
+    for (int ind = 0; ind < count; ind++)
+    {
+        if (arr[ind] == elem_2_search)
+        {
+            flag = 1;
+            printf("Searched Element: %d found at index [%d] in the array.\n", elem_2_search, ind);
+        }
+    }
+
+    if (flag == 0)
+        printf("Searched Element: %d not found in the array.\n", elem_2_search);
+
 }
 
 void delete_elem()
