@@ -50,9 +50,14 @@ void display_plynml(struct plynml_term p_t[], int num_terms)
 {
     for (int i = 0; i < num_terms; i++)
     {
-        printf("(%d).(%c^%d)", p_t[i].coeff, var, p_t[i].expon);
-        if (i < num_terms - 1)
-            printf(" + ");
+        if (p_t[i].coeff != 0)
+        {
+            printf(" (%d)", p_t[i].coeff);
+            if (p_t[i].expon != 0)
+                printf(".(%c^%d) ", var, p_t[i].expon);
+            if (i < num_terms - 1 && p_t[i+1].coeff != 0)
+                printf("+");
+        }
     }
     printf("\n");
 }

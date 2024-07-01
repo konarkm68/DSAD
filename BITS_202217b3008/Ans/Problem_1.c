@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+// Global Declarations
 #define arrSIZE 10
+int count = 0, arr[arrSIZE];
 
 // Function Prototypes
 void create_arr(int);
@@ -10,8 +12,6 @@ void display_arr();
 void search_elem(int);
 void delete_elem(int);
 void insert_elem(int, int);
-// Head
-int count = 0, arr[arrSIZE];
 
 int main(void)
 {
@@ -104,25 +104,27 @@ void display_arr()
         printf("Array-based List is empty. .. ...");
     else
         for (int i = 0; i < arrSIZE; i++)
-            printf("%d, ", arr[i]);
+        {
+            printf("%d", arr[i]);
+            if (i != arrSIZE - 1)
+                printf(", ");
+        }
 
     printf("\n\n");
 }
 
 void search_elem(int elem_2_search)
 {
-    int flag = 0;
     for (int ind = 0; ind < count; ind++)
     {
         if (arr[ind] == elem_2_search)
         {
-            flag = 1;
-            printf("Searched Element: %d found at index [%d] in the array.\n", elem_2_search, ind);
+            printf("Searched Element: (%d) FOUND at index [%d] in the array.\n", elem_2_search, ind);
+            return;
         }
     }
 
-    if (flag == 0)
-        printf("Searched Element: %d not found in the array.\n", elem_2_search);
+    printf("Searched Element: (%d) NOT FOUND in the array.\n", elem_2_search);
 
 }
 

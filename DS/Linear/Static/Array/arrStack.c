@@ -17,9 +17,9 @@ int main(void)
 
     while (true)
     {
-        printf("Array-based Circular Stack (L.I.F.O.) [Size: %d]\n", STACKSIZE);
+        printf("Array-based Stack (L.I.F.O.) [Size: %d]\n", STACKSIZE);
         printf("\n");
-        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show Array-based Circular Stack\n4. Exit\n");
+        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show Array-based Stack\n4. Exit\n");
         printf("\n");
         printf("Enter your choice: ");
         scanf("%d",&choice);
@@ -56,7 +56,7 @@ int main(void)
 void display_arr()
 {
     if (count == 0)
-        printf("Array-based Circular Stack is empty. .. ...");
+        printf("Array-based Stack is empty. .. ...");
     else
         for (int i = 0; i < STACKSIZE; i++)
             printf("%d, ", arr[i]);
@@ -73,7 +73,7 @@ void delete_elem()
 
     }
     else
-        printf("Array-based Circular Stack is empty. (Under-Flow NOT-ALLOWED)\n");
+        printf("Array-based Stack is empty. (Under-Flow NOT-ALLOWED)\n");
 }
 
 void insert_elem(int elem_2_insert)
@@ -85,5 +85,5 @@ void insert_elem(int elem_2_insert)
 
     }
     else
-        printf("Array-based Circular Stack is at Capacity. (Over-Flow NOT-ALLOWED)\n");
+        printf("Array-based Stack is at Capacity. (Over-Flow NOT-ALLOWED)\n");
 }

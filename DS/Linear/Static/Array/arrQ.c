@@ -17,9 +17,9 @@ int main(void)
 
     while (true)
     {
-        printf("Array-based Circular Queue (F.I.F.O.) [Size: %d]\n", QSIZE);
+        printf("Array-based Rotating Queue (F.I.F.O.) [Size: %d]\n", QSIZE);
         printf("\n");
-        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show Array-based Circular Queue\n4. Exit\n");
+        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show Array-based Rotating Queue\n4. Exit\n");
         printf("\n");
         printf("Enter your choice: ");
         scanf("%d",&choice);
@@ -56,7 +56,7 @@ int main(void)
 void display_arr()
 {
     if (count == 0)
-        printf("Array-based Circular Queue is empty. .. ...");
+        printf("Array-based Rotating Queue is empty. .. ...");
     else
         for (int i = 0; i < QSIZE; i++)
             printf("%d, ", arr[i]);
@@ -73,7 +73,7 @@ void delete_elem()
         count--;
     }
     else
-        printf("Array-based Circular Queue is empty. (Under-Flow NOT-ALLOWED)\n");
+        printf("Array-based Rotating Queue is empty. (Under-Flow NOT-ALLOWED)\n");
 }
 
 void insert_elem(int elem_2_insert)
@@ -85,5 +85,5 @@ void insert_elem(int elem_2_insert)
         count++;
     }
     else
-        printf("Array-based Circular Queue is at Capacity. (Over-Flow NOT-ALLOWED)\n");
+        printf("Array-based Rotating Queue is at Capacity. (Over-Flow NOT-ALLOWED)\n");
 }

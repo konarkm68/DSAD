@@ -2,15 +2,15 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+// Global Declarations
 #define QSIZE 3
+int front = 0, rear = -1, count = 0, arr[QSIZE];
 
 // Function Prototypes
 void display_arr();
 void search_elem(int elem_2_search);
-void delete_elem();
+ int delete_elem();
 void insert_elem(int elem_2_insert);
-// Head
-int front = 0, rear = -1, count = 0, arr[QSIZE];
 
 int main(void)
 {
@@ -18,9 +18,9 @@ int main(void)
 
     while (true)
     {
-        printf("Array-based Circular Queue (F.I.F.O.) [Size: %d]\n", QSIZE);
+        printf("Array-based Rotating Queue (F.I.F.O.) [Size: %d]\n", QSIZE);
         printf("\n");
-        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show Array-based Circular Queue\n4. Exit\n5. Search Element\n");
+        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show Array-based Rotating Queue\n4. Exit\n"); //5. Search Element\n");
         printf("\n");
         printf("Enter your choice: ");
         scanf("%d",&choice);
@@ -39,9 +39,13 @@ int main(void)
                 break;
             }
             case 2:
-                delete_elem();
+            {
+                int del_elem = delete_elem();
+                if (del_elem != -11111)
+                    printf("The deleted element is: %d\n", del_elem);
                 display_arr();
                 break;
+            }
             case 3:
                 display_arr();
                 break;
@@ -70,41 +74,55 @@ int main(void)
 void display_arr()
 {
     if (count == 0)
-        printf("Array-based Circular Queue is empty. .. ...");
+        printf("Array-based Rotating Queue is empty. .. ...");
     else
-        for (int i = 0; i < QSIZE; i++)
-            printf("%d, ", arr[i]);
+    {
+        int ind = front;
+        for (int i = 0; i < count; i++)
+        {
+            printf("%d", arr[ind]);
+            if (i != count - 1)
+                printf(", ");
+            ind = (ind + 1) % QSIZE;
+        }
+    }
 
     printf("\n\n");
 }
 
 void search_elem(int elem_2_search)
 {
-    int flag = 0;
-    for (int ind = 0; ind < QSIZE; ind++)
+    int ind = front;
+    for (int i = 0; i < count; i++)
     {
         if (arr[ind] == elem_2_search)
         {
-            flag = 1;
-            printf("Searched Element: %d found at index [%d] in the array.\n", elem_2_search, ind);
+            printf("Searched Element: (%d) FOUND at index [%d] in the Array-based Rotating Queue.\n", elem_2_search, ind);
+            return;
         }
+        ind = (ind + 1) % QSIZE;
     }
 
-    if (flag == 0)
-        printf("Searched Element: %d not found in the array.\n", elem_2_search);
+    printf("Searched Element: (%d) NOT FOUND in the Array-based Rotating Queue.\n", elem_2_search);
 
 }
 
-void delete_elem()
+int delete_elem()
 {
+    int del_elem;
     if (0 < count && count <= QSIZE)
     {
+        del_elem = arr[front];
         arr[front] = 0;
         front = (front + 1) % QSIZE;
         count--;
+        return del_elem;
     }
     else
-        printf("Array-based Circular Queue is empty. (Under-Flow NOT-ALLOWED)\n");
+    {
+        printf("Array-based Rotating Queue is empty. (Under-Flow NOT-ALLOWED)\n");
+        return -11111;
+    }
 }
 
 void insert_elem(int elem_2_insert)
@@ -116,5 +134,5 @@ void insert_elem(int elem_2_insert)
         count++;
     }
     else
-        printf("Array-based Circular Queue is at Capacity. (Over-Flow NOT-ALLOWED)\n");
+        printf("Array-based Rotating Queue is at Capacity. (Over-Flow NOT-ALLOWED)\n");
 }

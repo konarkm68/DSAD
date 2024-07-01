@@ -6,7 +6,11 @@ void selection_sort(int num_elems, int list[], bool asc_flag)
 {
     printf("\nOriginal List: ");
     for (int i = 0; i < num_elems; i++)
-        printf("%d, ", list[i]);
+    {
+        printf("%d", list[i]);
+        if (i != num_elems - 1)
+            printf(", ");
+    }
 
     for (int i = 0; i <= num_elems - 2; i++)
     {
@@ -41,7 +45,11 @@ void selection_sort(int num_elems, int list[], bool asc_flag)
 
     printf("\n  Sorted List: ");
     for (int i = 0; i < num_elems; i++)
-        printf("%d, ", list[i]);
+    {
+        printf("%d", list[i]);
+        if (i != num_elems - 1)
+            printf(", ");
+    }
     printf("\n");
 }
 

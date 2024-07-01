@@ -6,11 +6,11 @@ void linear_search(int num_elems, int list[], int elem)
     for (int i = 0; i < num_elems; i++)
         if (list[i] == elem)
         {
-            printf("Found element (%d) at index - %d.\n", elem, i);
+            printf("Searched Element: (%d) FOUND at index [%d] in the array.\n", elem, i);
             return;
         }
 
-    printf("Not found!\n");
+    printf("Searched Element: (%d) NOT FOUND in the array.\n", elem);
     return;
 }
 
