@@ -8,9 +8,9 @@ int front = 0, rear = -1, count = 0, arr[QSIZE];
 
 // Function Prototypes
 void display_arr();
-void search_elem(int elem_2_search);
+void search_elem(int);
  int delete_elem();
-void insert_elem(int elem_2_insert);
+void insert_elem(int);
 
 int main(void)
 {

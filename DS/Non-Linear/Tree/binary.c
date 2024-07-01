@@ -1,31 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Node Structure
+typedef struct node
+{
+  struct node *left_st;
+  int data;
+  struct node *right_st;
+} node;
+// Root
+struct node *root = NULL;
+
 // Function Prototypes
 void insert_elem(struct node *head, int data);
 void in_order();
 void pre_order();
 void post_order();
 
-// Node Structure
-struct node
-{
-  struct node *left_st;
-  int data;
-  struct node *right_st;
-};
-// Root
-struct node *root = NULL;
-
 int main()
 {
-  insert_elem(root, 50);
-  insert_elem(root, 30);
-  insert_elem(root, 20);
-  insert_elem(root, 40);
-  insert_elem(root, 70);
-  insert_elem(root, 60);
-  insert_elem(root, 80);
+  insert_elem(root, 1);
+  insert_elem(root, 2);
+  insert_elem(root, 3);
 
   printf("In-Order traversal: ");
   in_order();
@@ -42,7 +38,7 @@ int main()
   return 0;
 }
 
-void insert_elem(struct node *head, int insert_value)
+void insert_elem(node *head, int insert_value)
 {
     if (head == NULL)
     {
