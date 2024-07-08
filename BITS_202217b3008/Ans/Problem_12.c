@@ -13,40 +13,152 @@ node *root = NULL, *Q[MAX_QNODES];
 int front = 0, rear = 0, count = 0;
 
 // Function Prototypes
-void reset_Q();
-node *insert_node(node *, int);
-node *del_node(node *, int); void del_node_deepest(node *, node *);
+// 1. Helpers
+void reset_Q(node *);
+void level_order_ops(node *, bool, bool, node *, bool, node *);
+// 2. Operations
+node *ins_node(node *, int);
+node *del_node(node *, int);
+//    -- Traversals
 void   pre_order(node *);
 void    in_order(node *);
 void  post_order(node *);
-node *level_order(node *, bool, int);
+//    -- Display Binary Tree
 void display_bin_tree(node *);
 
 int main(void)
 {
-    // Insertion of nodes
-    root = insert_node(root, 1);
-    root = insert_node(root, 2);
-    root = insert_node(root, 3);
-    root = insert_node(root, 4);
+    int choice;
 
-    printf(" Initial "); display_bin_tree(root);
+    while (true)
+    {
+        printf("Binary Tree Operations\n");
+        printf("\n");
+        printf("Choices:\n1. Insert Node\n2. Delete Node\n3. Display Binary Tree Traversals\n4. Exit\n");
+        printf("\n");
+        printf("Enter your choice: ");
+        scanf("%d",&choice);
 
-    printf("\n\n");
+        switch(choice)
+        {
+            case 1:
+            {
+                int value;
 
-    root = del_node(root, 4);
+                printf("Enter integer value to insert: ");
+                scanf("%d",&value);
 
-    printf("Terminal "); display_bin_tree(root);
+                root = ins_node(root, value);
+                display_bin_tree(root);
+                break;
+            }
+            case 2:
+            {
+                int value;
+
+                printf("Enter integer value to delete: ");
+                scanf("%d",&value);
+
+                root = del_node(root, value);
+                display_bin_tree(root);
+                break;
+            }
+            case 3:
+                display_bin_tree(root);
+                break;
+            case 4:
+                exit(0);
+                break;
+            default:
+                printf("Invalid Choice...!!\n\n");
+        }
+    }
 
     return 0;
 }
 
-void reset_Q()
+void reset_Q(node *bin_tree)
 {
     front = rear = count = 0;
+    Q[rear++] = bin_tree;
 }
 
-node *insert_node(node *parent_node, int val_2_insert)
+void level_order_ops(node *bin_tree, bool en_trvrs, bool en_ins, node *node_2_ins, bool en_del, node *node_2_del)
+{
+    node *deepest_rightmost_node;
+
+    reset_Q(bin_tree);
+
+    while (front != rear)
+    {
+        deepest_rightmost_node = Q[front++];
+        if (en_trvrs == true)
+        {
+            if (bin_tree != NULL)
+            {
+                printf("%d ", deepest_rightmost_node->data);
+                if (deepest_rightmost_node->l_child)
+                    Q[rear++] = deepest_rightmost_node->l_child;
+                if (deepest_rightmost_node->r_child)
+                    Q[rear++] = deepest_rightmost_node->r_child;
+            }
+            else
+                printf("None - ZERO Binary Tree nodes");
+        }
+
+        else if (en_ins == true)
+        {
+            if (deepest_rightmost_node->l_child == NULL)
+            {
+                deepest_rightmost_node->l_child = node_2_ins;
+                break;
+            }
+            else
+                Q[rear++] = deepest_rightmost_node->l_child;
+            if (deepest_rightmost_node->r_child == NULL)
+            {
+                deepest_rightmost_node->r_child = node_2_ins;
+                break;
+            }
+            else
+                Q[rear++] = deepest_rightmost_node->r_child;
+        }
+
+        else if (en_del == true)
+        {
+            if (deepest_rightmost_node == node_2_del)
+            {
+                deepest_rightmost_node = NULL;
+                free(node_2_del);
+                return;
+            }
+            if (deepest_rightmost_node->r_child)
+            {
+                if (deepest_rightmost_node->r_child == node_2_del)
+                {
+                    deepest_rightmost_node->r_child = NULL;
+                    free(node_2_del);
+                    return;
+                }
+                else
+                    Q[rear++] = deepest_rightmost_node->r_child;
+            }
+            if (deepest_rightmost_node->l_child)
+            {
+                if (deepest_rightmost_node->l_child == node_2_del)
+                {
+                    deepest_rightmost_node->l_child = NULL;
+                    free(node_2_del);
+                    return;
+                }
+                else
+                    Q[rear++] = deepest_rightmost_node->l_child;
+            }
+        }
+    }
+}
+
+node *ins_node(node *bin_tree, int val_2_insert)
 {
     // New Node
     node* new_node = (node *) malloc(sizeof(node));
@@ -54,112 +166,52 @@ node *insert_node(node *parent_node, int val_2_insert)
     new_node->data = val_2_insert;
     new_node->r_child = NULL;
 
-    if (parent_node == NULL)
+    if (bin_tree == NULL)
     {
-        parent_node = new_node;
-        return parent_node;
-    }
-    // Queue to traverse the tree and find the position to insert_node the node
-    reset_Q();
-    Q[rear++] = parent_node;
-    while (front != rear)
-    {
-        node* temp = Q[front++];
-        // Insert node as the l_child child of the parent node
-        if (temp->l_child == NULL)
-        {
-            temp->l_child = new_node;
-            break;
-        }
-        // If the l_child child is not null, push it to the Q
-        else
-            Q[rear++] = temp->l_child;
-        // Insert node as the r_child child of parent node
-        if (temp->r_child == NULL)
-        {
-            temp->r_child = new_node;
-            break;
-        }
-        // If the r_child child is not null, push it to the Q
-        else
-            Q[rear++] = temp->r_child;
-        }
-        return parent_node;
-}
-/* Function to delete the given deepest node (d_node) in binary tree */
-void del_node_deepest(node* parent_node, node* d_node)
-{
-    reset_Q();
-    Q[rear++] = parent_node;
-    // Do level order traversal until last node
-    node* temp;
-    while (front != rear)
-    {
-        temp = Q[front++];
-        if (temp == d_node)
-        {
-            temp = NULL;
-            free(d_node);
-            return;
-        }
-        if (temp->r_child)
-        {
-            if (temp->r_child == d_node)
-            {
-                temp->r_child = NULL;
-                free(d_node);
-                return;
-            }
-            else
-                Q[rear++] = temp->r_child;
-        }
-        if (temp->l_child)
-        {
-            if (temp->l_child == d_node)
-            {
-                temp->l_child = NULL;
-                free(d_node);
-                return;
-            }
-            else
-            Q[rear++] = temp->l_child;
-        }
-    }
-}
-/* Function to delete element in binary tree */
-node* del_node(node* parent_node, int key)
-{
-    if (!parent_node)
-        return NULL;
-    if (parent_node->l_child == NULL && parent_node->r_child == NULL)
-    {
-        if (parent_node->data == key)
-            return NULL;
-        else
-            return parent_node;
+        bin_tree = new_node;
+        return bin_tree;
     }
 
-    node *temp = NULL, *key_node = NULL;
-    // Do level order traversal to find deepest node (temp) and node to be deleted (key_node)
-    reset_Q();
-    Q[rear++] = parent_node;
+    level_order_ops(bin_tree, false, true, new_node, false, NULL);
+    return bin_tree;
+}
+
+node *del_node(node *bin_tree, int val_2_del)
+{
+    node *deepest_rightmost_node = NULL, *node_2_del = NULL;
+
+    if (bin_tree == NULL)
+        return NULL;
+
+    if (bin_tree->l_child == NULL && bin_tree->r_child == NULL)
+    {
+        if (bin_tree->data == val_2_del)
+        {
+            free(bin_tree);
+            return NULL;
+        }
+        else
+            return bin_tree;
+    }
+
+    reset_Q(bin_tree);
     while (front != rear)
     {
-        temp = Q[front++];
-        if (temp->l_child)
-            Q[rear++] = temp->l_child;
-        if (temp->r_child)
-            Q[rear++] = temp->r_child;
-        if (temp->data == key)
-            key_node = temp;
+        deepest_rightmost_node = Q[front++];
+        if (deepest_rightmost_node->l_child)
+            Q[rear++] = deepest_rightmost_node->l_child;
+        if (deepest_rightmost_node->r_child)
+            Q[rear++] = deepest_rightmost_node->r_child;
+        if (deepest_rightmost_node->data == val_2_del)
+            node_2_del = deepest_rightmost_node;
     }
-    if (key_node != NULL)
+    if (node_2_del != NULL)
     {
-        int x = temp->data;
-        key_node->data = x;
-        del_node_deepest(parent_node, temp);
+        int x = deepest_rightmost_node->data;
+        node_2_del->data = x;
+        level_order_ops(bin_tree, false, false, NULL, true, deepest_rightmost_node);
     }
-    return parent_node;
+    return bin_tree;
 }
 
 void pre_order(node *bin_tree)
@@ -195,38 +247,12 @@ void post_order(node *bin_tree)
     }
 }
 
-node *level_order(node *bin_tree, bool en_del_node, int node_2_del)
-{
-    node *temp = NULL;
-
-    if (bin_tree != NULL)
-    {
-        reset_Q();
-        Q[rear++] = bin_tree;
-        while (front != rear)
-        {
-            temp = Q[front++];
-            printf("%d ", temp->data);
-            // Push l_child child in the Q
-            if (temp->l_child)
-                Q[rear++] = temp->l_child;
-            // Push r_child child in the Q
-            if (temp->r_child)
-                Q[rear++] = temp->r_child;
-            if (en_del_node == true)
-                if (temp->data == node_2_del)
-                    return temp;
-        }
-    }
-    return temp;
-}
-
 void display_bin_tree(node *bin_tree)
 {
-    printf("Binary Tree Traversal: ");
+    printf("Binary Tree Traversals: ");
     printf("\n      PRE-Order: ");   pre_order(bin_tree);
     printf("\n       IN-Order: ");    in_order(bin_tree);
     printf("\n     POST-Order: ");  post_order(bin_tree);
-    printf("\n    LEVEL-Order: "); level_order(bin_tree, false, 0);
-    printf("\n");
+    printf("\n    LEVEL-Order: "); level_order_ops(bin_tree, true, false, NULL, false, NULL);
+    printf("\n\n\n");
 }

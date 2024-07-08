@@ -20,7 +20,7 @@ int main(void)
     {
         printf("Array-based Rotating Queue (F.I.F.O.) [Size: %d]\n", QSIZE);
         printf("\n");
-        printf("Choices:\n1. Insert Element\n2. Delete Element\n3. Show Array-based Rotating Queue\n4. Exit\n"); //5. Search Element\n");
+        printf("Choices:\n1. Enqueue Element\n2. Dequeue Element\n3. Show Array-based Rotating Queue\n4. Exit\n"); //5. Search Element\n");
         printf("\n");
         printf("Enter your choice: ");
         scanf("%d",&choice);
