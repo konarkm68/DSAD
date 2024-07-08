@@ -9,7 +9,7 @@ typedef struct node {
     int data;
     struct node *r_child;
 } node;
-node *root = NULL, *Q[MAX_QNODES];
+node *bin_tree = NULL, *Q[MAX_QNODES];
 int front = 0, rear = 0, count = 0;
 
 // Function Prototypes
@@ -48,8 +48,8 @@ int main(void)
                 printf("Enter integer value to insert: ");
                 scanf("%d",&value);
 
-                root = ins_node(root, value);
-                display_bin_tree(root);
+                bin_tree = ins_node(bin_tree, value);
+                display_bin_tree(bin_tree);
                 break;
             }
             case 2:
@@ -59,12 +59,12 @@ int main(void)
                 printf("Enter integer value to delete: ");
                 scanf("%d",&value);
 
-                root = del_node(root, value);
-                display_bin_tree(root);
+                bin_tree = del_node(bin_tree, value);
+                display_bin_tree(bin_tree);
                 break;
             }
             case 3:
-                display_bin_tree(root);
+                display_bin_tree(bin_tree);
                 break;
             case 4:
                 exit(0);
@@ -207,8 +207,8 @@ node *del_node(node *bin_tree, int val_2_del)
     }
     if (node_2_del != NULL)
     {
-        int x = deepest_rightmost_node->data;
-        node_2_del->data = x;
+        int val_2_del = deepest_rightmost_node->data;
+        node_2_del->data = val_2_del;
         level_order_ops(bin_tree, false, false, NULL, true, deepest_rightmost_node);
     }
     return bin_tree;
