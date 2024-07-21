@@ -15,7 +15,7 @@ int front = 0, rear = 0, count = 0, bin_tree_level = 0;
 // Function Prototypes
 // 1. Helpers
 void reset_Q(node *);
-void level_order_ops(node *);
+void level_order(node *);
 // 2. Operations
 node *ins_node(node *, int);
 node *del_node(node *, int);
@@ -99,7 +99,7 @@ void reset_Q(node *bin_tree)
     Q[rear++] = bin_tree;
 }
 
-void level_order_ops(node *bin_tree)
+void level_order(node *bin_tree)
 {
     node *deepest_rightmost_node;
 
@@ -239,6 +239,6 @@ void display_bin_tree(node *bin_tree)
     printf("\n      PRE-Order: ");   pre_order(bin_tree);
     printf("\n       IN-Order: ");    in_order(bin_tree);
     printf("\n     POST-Order: ");  post_order(bin_tree);
-    printf("\n    LEVEL-Order: "); level_order_ops(bin_tree);
+    printf("\n    LEVEL-Order: "); level_order(bin_tree);
     printf("\n\n\n");
 }
