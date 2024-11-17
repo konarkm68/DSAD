@@ -8,5 +8,6 @@ public class Main
 
         product_info.display_product_details();
 
+        cust_billing.checkout();
 	}
 }

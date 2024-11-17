@@ -10,6 +10,14 @@ public class product_info {
         scanner.close();
     }
 
+    // Product categories and items (using arrays)
+    static String[] categories = {"EXIT", "Electronics", "Grocery"};
+    static Product[][] products = {
+    		{},
+            {new Product("Laptop", 80000), new Product("Smartphone", 40000), new Product("Headphones", 5000)},
+            {new Product("Rice", 50), new Product("Wheat", 40), new Product("Oil", 150)}
+    };
+
     public static class Product {
         String name;
         int price;
@@ -21,13 +29,6 @@ public class product_info {
     }
 
     public static void display_product_details() {
-        // Product categories and items (using arrays)
-        String[] categories = {"EXIT", "Electronics", "Grocery"};
-        Product[][] products = {
-        		{},
-                {new Product("Laptop", 80000), new Product("Smartphone", 40000), new Product("Headphones", 5000)},
-                {new Product("Rice", 50), new Product("Wheat", 40), new Product("Oil", 150)}
-        };
 
         // Display categories
         System.out.printf("%nAvailable Categories:%n");
@@ -43,22 +44,22 @@ public class product_info {
 
         // Display products in the chosen category
         do {
-            System.out.print("Enter the category you want to explore (or 'EXIT' to quit): ");
+            System.out.print("Enter the category you want to explore (or 'EXIT' to exit this prompt): ");
             chosenCategory = scanner.nextLine().toLowerCase();
 
             if (categories[0].toLowerCase().equals(chosenCategory)) {
-                break; // Exit loop if user enters "EXIT!!" (case-insensitive)
+                break; // Exit loop if user enters "EXIT" (case-insensitive)
             }
 
-            for (int i = 0; i < categories.length; i++) {
+            for (int i = 1; i < categories.length; i++) {
                 if (categories[i].toLowerCase().equalsIgnoreCase(chosenCategory)) {
                     System.out.printf("%nProducts in " + categories[i] + ": %n");
                     for (Product product : products[i]) {
                         System.out.println("- " + product.name + ": ₹" + product.price);
                     }
-                    break; // Exit inner loop after displaying products
+                    break;
                 }
             }
-        } while (true); // Continue loop until user enters "EXIT!!"
+        } while (true);
     }
 }

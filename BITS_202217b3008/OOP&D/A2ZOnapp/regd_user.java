@@ -45,7 +45,7 @@ public class regd_user {
         }
 		// 3
         if (ch_email && !this.email.matches("(\\w+@\\w+\\.\\w+)?")) {
-            System.out.printf("%nInvalid Email address! (Must contain @ and .)%n%n");
+            System.out.printf("%nInvalid Email address! (Must contain @ and . in that order)%n%n");
             score -= 1;
         }
 		// 4
