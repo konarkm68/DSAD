@@ -7,26 +7,27 @@ import java.util.Scanner;
 import A2ZOnapp.product_info.Product;
 
 public class cust_billing {
-	public static void main(String[] args) {    
+
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
     }
-    
+
     public static void checkout() {
-    	Scanner sc = new Scanner(System.in);
-    	
     	String chosenProduct;
         boolean itemAdded = false;
         float totalAmount = 0;
         List<Product> cart = new ArrayList<>();
-        
+
     	do {
             System.out.printf("%nEnter the product name to add to your cart (or 'EXIT' to exit this prompt): ");
-            chosenProduct = sc.nextLine().trim().toLowerCase();
-            
+            chosenProduct = scanner.nextLine().toLowerCase();
+
             if (product_info.categories[0].toLowerCase().equals(chosenProduct)) {
                 break; // Exit loop if user enters "EXIT" (case-insensitive)
             }
-            
-            for (int i = 1; i < product_info.categories.length; i++) {            	
+
+            for (int i = 1; i < product_info.categories.length; i++) {
                 for (Product product : product_info.products[i]) {
                 	if (product.name.toLowerCase().equals(chosenProduct)) {
                         cart.add(product);
@@ -36,13 +37,13 @@ public class cust_billing {
                     }
                 }
             }
-            
+
             if (itemAdded == false) {
-            	System.out.println("Item IS NOT available!");           
-            } 
-            
+            	System.out.println("Item IS NOT available!");
+            }
+
             itemAdded = false;
-            
+
         } while (true); // Continue loop until user enters "EXIT"
 
         // Display total amount and payment options
@@ -52,7 +53,7 @@ public class cust_billing {
         System.out.println("2. Online Payment (PayTM/Google Pay/PhonePe)");
 
         // Get payment method
-        System.out.printf("%nEnter your payment method (1 or 2): "); int paymentMethod = sc.nextInt();
+        System.out.printf("%nEnter your payment method (1 or 2): "); int paymentMethod = scanner.nextInt();
 
         // Process payment (simplified)
         if (paymentMethod == 1) {
@@ -63,8 +64,5 @@ public class cust_billing {
             System.out.printf("%nInvalid payment method.");
         }
         System.out.printf("%nThank you for shopping with us! Visit our website again.");
-        
-    	sc.close();
-
     }
 }
